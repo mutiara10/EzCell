@@ -125,7 +125,7 @@
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ez_password"
+                    android:id="@+id/ezpassword"
                     android:layout_width="300dp"
                     android:layout_height="58dp"
                     android:background="#5A1E1E"
