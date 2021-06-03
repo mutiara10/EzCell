@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:theme="@style/ToolbarTheme"
-        app:titleTextColor="@android:color/white"
+        app:titleTextColor="@android:color/black"
         />
 
 
