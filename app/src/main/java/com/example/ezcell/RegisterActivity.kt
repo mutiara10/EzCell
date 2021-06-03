@@ -24,8 +24,7 @@ class RegisterActivity : AppCompatActivity() {
             // TODO check if any form empty
 
             val email = binding.email.text.toString()
-            val password = binding.ezpassword.text.toString()
-
+            val password = binding.ezPassword.text.toString()
 
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {

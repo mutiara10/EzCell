@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import com.example.ezcell.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -29,6 +30,24 @@ class MainActivity : AppCompatActivity() {
         (binding.btnRegister).setOnClickListener {
             Intent( this@MainActivity,RegisterActivity::class.java ).also {
                 startActivity(it)
+            }
+        }
+
+        (binding.btnLogin).setOnClickListener {
+            // TODO check if email or password empty
+
+            val email = binding.email.text.toString()
+            val password = binding.ezPassword.text.toString()
+
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Intent(this, HomeActivity::class.java).also {
+                        startActivity(it)
+                    }
+                    finish()
+                }
+            }.addOnFailureListener { exception  ->
+                Toast.makeText(applicationContext, exception.localizedMessage, Toast.LENGTH_LONG).show()
             }
         }
     }
