@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "928624032489",
+    "firebase_url": "https://ezcell-default-rtdb.firebaseio.com",
+    "project_id": "ezcell",
+    "storage_bucket": "ezcell.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:928624032489:android:aec9ffeb8df5f0390d8e78",
+        "android_client_info": {
+          "package_name": "com.example.ezcell"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "928624032489-4vh1jr6n7c5c7mgi388bh9311p47kddt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVTUP6LcZ5KxLrvwi1WN0LAo-r43kH67w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "928624032489-4vh1jr6n7c5c7mgi388bh9311p47kddt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
