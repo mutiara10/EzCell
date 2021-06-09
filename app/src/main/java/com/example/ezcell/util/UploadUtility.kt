@@ -46,7 +46,7 @@ class UploadUtility(activity: Activity) {
 
                 if (response.isSuccessful) {
                     Log.d("File upload","success,")
-                    showToast("File uploaded successfully at server")
+                    showToast("File uploaded successfully at server $response")
                 } else {
                     Log.e("File upload", "failed")
                     showToast("File uploading failed $response")

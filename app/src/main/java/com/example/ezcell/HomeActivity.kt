@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.ezcell.databinding.ActivityHomeBinding
 import com.example.ezcell.fm.CameraFragment
 import com.example.ezcell.fm.HistoryFragment
 import com.example.ezcell.fm.HomeFragment
@@ -19,11 +20,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class HomeActivity : AppCompatActivity() {
-
+    private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        setContentView(binding.root)
 
         val navController: NavController = findNavController(R.id.nav_host_fragment)
         val appBarConfiguration: AppBarConfiguration = AppBarConfiguration.Builder(
@@ -34,6 +35,11 @@ class HomeActivity : AppCompatActivity() {
 
         val navigasiBawah = findViewById<BottomNavigationView>(R.id.navigasi_bawah)
         navigasiBawah.setupWithNavController(navController)
+
+        binding.fab.setOnClickListener {
+            val intent = Intent(this, CameraActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 
