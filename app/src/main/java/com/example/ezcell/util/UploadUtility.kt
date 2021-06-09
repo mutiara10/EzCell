@@ -2,10 +2,12 @@ package com.example.ezcell.util
 
 import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import android.webkit.MimeTypeMap
 import android.widget.Toast
+import com.example.ezcell.ResultActivity
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -48,7 +50,12 @@ class UploadUtility(activity: Activity) {
 
                 if (response.isSuccessful) {
                     val res = JSONObject(response.body?.string())
-                    val resResult = res.getString("result")
+                    val resDetection = res.getString("result")
+
+                    val intent = Intent(activity, ResultActivity::class.java).apply {
+                        putExtra(ResultActivity.EXTRA_DETECT_RESULT, resDetection)
+                    }
+                    activity.startActivity(intent)
                 } else {
                     Log.e("File upload", "failed")
                     showToast("File uploading failed with error $response")
