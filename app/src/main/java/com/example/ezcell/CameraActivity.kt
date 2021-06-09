@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -16,6 +17,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.ezcell.databinding.ActivityCameraBinding
+import com.example.ezcell.util.UploadUtility
 import kotlinx.android.synthetic.main.activity_camera.*
 import java.io.File
 import java.util.concurrent.Executor
@@ -40,9 +42,9 @@ class CameraActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
         }
 
-        binding.cameraCaptureButton.setOnClickListener { takePhoto() }
+        binding.btnCapture.setOnClickListener { takePhoto() }
 
-        binding.pickImageButton.setOnClickListener { pickImage() }
+        binding.btnPickImage.setOnClickListener { pickImage() }
 
         outputDirectory = getOutputDirectory()
 
@@ -64,8 +66,7 @@ class CameraActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == 100){
-            Toast.makeText(this, "image uploaded ${data?.data}", Toast.LENGTH_SHORT).show()
-            binding.imageView.setImageURI(data?.data) // handle chosen image
+            data?.data?.let { UploadUtility(this).uploadFile(it) }
         }
     }
 
@@ -86,9 +87,7 @@ class CameraActivity : AppCompatActivity() {
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
 
             // Preview
-            val preview = Preview.Builder()
-                .build()
-                .also {
+            val preview = Preview.Builder().build().also {
                     it.setSurfaceProvider(viewFinder.surfaceProvider)
                 }
 
@@ -100,8 +99,7 @@ class CameraActivity : AppCompatActivity() {
                 cameraProvider.unbindAll()
 
                 // Bind use cases to camera
-                cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview)
+                cameraProvider.bindToLifecycle(this, cameraSelector, preview)
 
             } catch(exc: Exception) {
                 Log.e(TAG, "Use case binding failed", exc)
@@ -119,8 +117,7 @@ class CameraActivity : AppCompatActivity() {
     private fun getOutputDirectory(): File {
         val mediaDir = externalMediaDirs.firstOrNull()?.let {
             File(it, resources.getString(R.string.app_name)).apply { mkdirs() } }
-        return if (mediaDir != null && mediaDir.exists())
-            mediaDir else filesDir
+        return if (mediaDir != null && mediaDir.exists()) mediaDir else filesDir
     }
 
     override fun onDestroy() {
