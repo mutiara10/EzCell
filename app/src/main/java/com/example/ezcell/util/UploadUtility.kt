@@ -34,7 +34,9 @@ class UploadUtility(activity: Activity) {
                 return@Thread
             }
             val fileName: String = if (uploadedFileName == null)  sourceFile.name else uploadedFileName
+
             toggleProgressDialog(true)
+
             try {
                 val requestBody: RequestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("file", fileName, sourceFile.asRequestBody(mimeType.toMediaTypeOrNull()))
@@ -46,7 +48,7 @@ class UploadUtility(activity: Activity) {
 
                 if (response.isSuccessful) {
                     Log.d("File upload","success,")
-                    showToast("File uploaded successfully at server $response")
+                    showToast("File uploaded successfully at server ${response.body().string()}")
                 } else {
                     Log.e("File upload", "failed")
                     showToast("File uploading failed $response")
@@ -56,6 +58,7 @@ class UploadUtility(activity: Activity) {
                 Log.e("File upload", "Failed with error $ex")
                 showToast("File uploading failed with error $ex")
             }
+
             toggleProgressDialog(false)
         }.start()
     }
