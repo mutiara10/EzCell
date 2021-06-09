@@ -18,14 +18,18 @@ import com.example.ezcell.fm.HistoryFragment
 import com.example.ezcell.fm.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        auth = FirebaseAuth.getInstance()
 
         val navController: NavController = findNavController(R.id.nav_host_fragment)
         val appBarConfiguration: AppBarConfiguration = AppBarConfiguration.Builder(
@@ -46,8 +50,20 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_pilihan, menu)
-        return true
+        return super.onCreateOptionsMenu(menu)
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_logout -> {
+                auth.signOut()
+                Intent(this, MainActivity::class.java).also {
+                    startActivity(it)
+                }
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }
 

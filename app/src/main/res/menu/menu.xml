@@ -9,11 +9,8 @@
     android:id="@+id/placeholder"
     android:title=""/>
 
-
     <item
         android:id="@+id/lg_history"
         android:icon="@drawable/ic_layout_s_dark"
         android:title="History"/>
-
-
 </menu>

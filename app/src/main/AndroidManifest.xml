@@ -17,10 +17,10 @@
         android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.EzCell">
-        <activity android:name=".CameraActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".CameraActivity" android:parentActivityName=".HomeActivity" />
+        <activity android:name=".HomeActivity" android:launchMode="singleTop" />
+        <activity android:name=".RegisterActivity" android:parentActivityName=".MainActivity" />
+        <activity android:name=".MainActivity" android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

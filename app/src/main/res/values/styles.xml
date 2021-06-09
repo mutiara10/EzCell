@@ -2,7 +2,7 @@
 <resources>
 
     <style name="ToolbarTheme">
-        <item name="android:textColorSecondary">@color/purple_500</item>
+        <item name="android:textColorSecondary">@color/primary</item>
     </style>
 
 </resources>

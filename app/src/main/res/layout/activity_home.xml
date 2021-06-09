@@ -29,16 +29,13 @@
             app:menu="@menu/menu" />
     </com.google.android.material.bottomappbar.BottomAppBar>
 
-
-
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_camera"
-        android:id="@+id/fab"
-        app:layout_anchor="@id/bottomApp"
-        />
+        android:backgroundTint="@color/black"
+        app:layout_anchor="@id/bottomApp" />
 
     <fragment
         android:id="@+id/nav_host_fragment"

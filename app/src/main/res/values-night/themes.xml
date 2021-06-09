@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.EzCell" parent="Theme.MaterialComponents">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimary">@color/light_red</item>
         <item name="colorPrimaryVariant">#911729</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->

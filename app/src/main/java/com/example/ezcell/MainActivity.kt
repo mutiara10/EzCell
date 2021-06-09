@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         if (auth.currentUser?.displayName != "") {
-            // Maybe broken
             Intent(this, HomeActivity::class.java).also {
                 startActivity(it)
             }
