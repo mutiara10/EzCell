@@ -9,6 +9,7 @@ import android.widget.Toast
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.asRequestBody
+import org.json.JSONObject
 import java.io.File
 
 class UploadUtility(activity: Activity) {
@@ -16,10 +17,6 @@ class UploadUtility(activity: Activity) {
     private val apiURL: String = "http://34.126.159.168/process-malaria"
     private val client = OkHttpClient()
     var dialog: ProgressDialog? = null
-
-    fun uploadFile(sourceFile: String, uploadedFileName: String? = null) {
-        uploadFile(File(sourceFile), uploadedFileName)
-    }
 
     fun uploadFile(sourceFileUri: Uri, uploadedFileName: String? = null) {
         val pathFromUri = URIPathHelper().getPath(activity,sourceFileUri)
@@ -30,7 +27,6 @@ class UploadUtility(activity: Activity) {
         Thread {
             val mimeType = getMimeType(sourceFile);
             if (mimeType == null) {
-                Log.e("file error", "Not able to get mime type")
                 return@Thread
             }
             val fileName: String = if (uploadedFileName == null)  sourceFile.name else uploadedFileName
@@ -38,20 +34,24 @@ class UploadUtility(activity: Activity) {
             toggleProgressDialog(true)
 
             try {
-                val requestBody: RequestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
+                val requestBody: RequestBody = MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
                     .addFormDataPart("file", fileName, sourceFile.asRequestBody(mimeType.toMediaTypeOrNull()))
                     .build()
 
-                val request: Request = Request.Builder().url(apiURL).post(requestBody).build()
+                val request: Request = Request.Builder()
+                    .url(apiURL)
+                    .post(requestBody)
+                    .build()
 
                 val response: Response = client.newCall(request).execute()
 
                 if (response.isSuccessful) {
-                    Log.d("File upload","success,")
-                    showToast("File uploaded successfully at server ${response.body().string()}")
+                    val res = JSONObject(response.body?.string())
+                    val resResult = res.getString("result")
                 } else {
                     Log.e("File upload", "failed")
-                    showToast("File uploading failed $response")
+                    showToast("File uploading failed with error $response")
                 }
             } catch (ex: Exception) {
                 ex.printStackTrace()
@@ -63,7 +63,6 @@ class UploadUtility(activity: Activity) {
         }.start()
     }
 
-    // url = file path or whatever suitable URL you want.
     fun getMimeType(file: File): String? {
         var type: String? = null
         val extension = MimeTypeMap.getFileExtensionFromUrl(file.path)
@@ -77,7 +76,7 @@ class UploadUtility(activity: Activity) {
 
     fun showToast(message: String) {
         activity.runOnUiThread {
-            Toast.makeText( activity, message, Toast.LENGTH_LONG ).show()
+            Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
         }
     }
 
