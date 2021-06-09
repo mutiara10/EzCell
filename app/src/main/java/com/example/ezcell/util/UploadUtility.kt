@@ -49,12 +49,12 @@ class UploadUtility(activity: Activity) {
                     showToast("File uploaded successfully at server")
                 } else {
                     Log.e("File upload", "failed")
-                    showToast("File uploading failed")
+                    showToast("File uploading failed $response")
                 }
             } catch (ex: Exception) {
                 ex.printStackTrace()
                 Log.e("File upload", "Failed with error $ex")
-                showToast("File uploading failed")
+                showToast("File uploading failed with error $ex")
             }
             toggleProgressDialog(false)
         }.start()
