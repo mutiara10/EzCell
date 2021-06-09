@@ -4,4 +4,9 @@
     <string name="password">****************</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="result">Result</string>
+    <string name="user_scan_result">Your scan result is:</string>
+    <string name="suggestion">Suggestion</string>
+    <string name="healthy_suggestion">You have healthy blood cell! Always do healthy life and spread the kindness!</string>
+    <string name="infected_suggestion">We think you should check your health to doctor as soon as possible</string>
 </resources>

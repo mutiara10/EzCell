@@ -12,7 +12,15 @@ class ResultActivity : AppCompatActivity() {
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.tvDetectResult.text = intent.getStringExtra(EXTRA_DETECT_RESULT)
+        val scanResult = intent.getStringExtra(EXTRA_DETECT_RESULT)
+
+        binding.tvDetectResult.text = scanResult
+
+        if (scanResult == "uninfected") {
+            binding.tvSuggest.text = getString(R.string.healthy_suggestion)
+        } else if (scanResult == "infected") {
+            binding.tvSuggest.text = getString(R.string.infected_suggestion)
+        }
     }
 
     companion object {
