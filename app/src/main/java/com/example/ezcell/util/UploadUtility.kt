@@ -37,7 +37,7 @@ class UploadUtility(activity: Activity) {
             toggleProgressDialog(true)
             try {
                 val requestBody: RequestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
-                    .addFormDataPart("uploaded_file", fileName,sourceFile.asRequestBody(mimeType.toMediaTypeOrNull()))
+                    .addFormDataPart("file", fileName, sourceFile.asRequestBody(mimeType.toMediaTypeOrNull()))
                     .build()
 
                 val request: Request = Request.Builder().url(apiURL).post(requestBody).build()
