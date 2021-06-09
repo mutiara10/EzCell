@@ -64,7 +64,7 @@ class CameraActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == 100){
-            Toast.makeText(this, "image uploaded.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "image uploaded ${data?.data}", Toast.LENGTH_SHORT).show()
             binding.imageView.setImageURI(data?.data) // handle chosen image
         }
     }
